@@ -1,0 +1,26 @@
+#indexing
+bwa index ../../data/Pfalciparum.genome.fasta
+#alignment
+bwa mem ../../exam_data/Pfalciparum.genome.fasta ../../exam_data/abn26_1.fastq.gz ../../exam_data/abn26_2.fastq.gz > abn26.sam
+# convert sam to bam
+samtools view -b abn26.sam -o abn26.bam
+#sorting
+samtools sort abn26.bam -o abn26_sorted.bam
+#Markduplicates
+picard MarkDuplicates I=abn26_sorted.bam O=abn26.markdup.bam M=abn26.metrics.txt
+#Indexing the markdup output file
+samtools index abn26.markdup.bam
+
+
+#indexing
+bwa index ../../exam_data/Pfalciparum.genome.fasta
+#alignment
+bwa mem ../../exam_data/Pfalciparum.genome.fasta ../../exam_data/abn26_1.fastq.gz ../../exam_data/abn26_2.fastq.gz > abn26.sam
+# convert sam to bam
+samtools view -b abn26.sam -o abn26.bam
+#sorting
+samtools sort abn26.bam -o abn26_sorted.bam
+#Markduplicates
+picard MarkDuplicates I=abn26_sorted.bam O=abn26.markdup.bam M=abn26.metrics.txt
+#Indexing the markdup output file
+samtools index abn26.markdup.bam
